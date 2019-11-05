@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/estilos.css" type="text/css"/>
+    </head>
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Ferreteria</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" href="index.html">Empleado</a>
+                        <a class="nav-item nav-link active" href="clientes.html">Clientes</a>
+                        <a class="nav-item nav-link active" href="productos.html">Productos</a>
+                        <a class="nav-item nav-link active" href="ventas.html">Ventas</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="tab">
+            <button class="tablinks" onclick="openEdicion(event, 'agregar')">Agregar</button>
+            <button class="tablinks" onclick="openEdicion(event, 'listar')">Listar</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="agregar" class="tabcontent">
+            <form class="form-signin">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre" placeholder="Nombre" required>
+                        <br>
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" aria-describedby="apellido" placeholder="Apellido" required>
+                        <br>
+                        <label for="dni">Dni:</label>
+                        <input type="text" class="form-control" id="dni" name="dni" aria-describedby="dni" placeholder="Dni" required>
+                        <br>
+                        <label for="telefono">Telefono:</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono" aria-describedby="telefono" placeholder="Telefono" required>
+                        <br>
+                        <br>
+                        <input id="empleado_agregar" type="button" class="btn btn-primary" value="Agregar">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="usuario">Usuario:</label>
+                        <input type="text" class="form-control" id="usuario" name="usuario" aria-describedby="usuario" placeholder="Usuario" required>
+                        <br>
+                        <label for="password">Password:</label>
+                        <input type="text" class="form-control" id="password" name="password" aria-describedby="password" placeholder="Password" required>
+                        <br>
+                        <label for="direccion">Direccion:</label>
+                        <input type="text" class="form-control" id="direccion" name="direccion" aria-describedby="direccion" placeholder="Direccion" required>
+                        <br>
+                        <label for="mail">Mail:</label>
+                        <input type="text" class="form-control" id="mail" name="mail" aria-describedby="mail" placeholder="Mail" required>
+                        <br>
+                        <label for="salario">Salario:</label>
+                        <input type="text" class="form-control" id="salario" name="salario" aria-describedby="salario" placeholder="Salario" required>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="listar" class="tabcontent">
+            <table class="table table-bordered" id='listado'>
+                <input id="empleado_ver" type="button" class="btn btn-primary" value="Ver Listado">
+            </table>
+        </div>
+        </div>
+        <script src="js/empleado.js"></script>
+        <div id="lamascara" class="mascara">
+            <div class="contenido">
+                <section id="panelResultados">
+
+                </section>
+                <button type="button" class="btn btn-primary" id="aceptarEditarButton">Aceptar</button>
+            </div>
+        </div>
+    </body>
+</html>

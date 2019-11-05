@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/estilos.css" type="text/css"/>
+    </head>
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Ferreteria</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" href="index.html">Empleado</a>
+                        <a class="nav-item nav-link active" href="clientes.html">Clientes</a>
+                        <a class="nav-item nav-link active" href="productos.html">Productos</a>
+                        <a class="nav-item nav-link active" href="ventas.html">Ventas</a>
+                    </div>
+                </div>
+            </nav>
+        <div class="tab">
+            <button class="tablinks" onclick="openEdicion(event, 'listar')">Listar</button>
+            <button class="tablinks" onclick="openEdicion(event, 'agregar')">Agregar</button>
+            <button class="tablinks" onclick="openEdicion(event, 'marca')">Marca</button>
+            <button class="tablinks" onclick="openEdicion(event, 'categoria')">Categoria</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="agregar" class="tabcontent">
+            <form class="form-signin">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="nombreProducto">Nombre:</label>
+                        <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" aria-describedby="nombreProducto" placeholder="Nombre" required>
+                        <br>
+                        <label for="costoProducto">Costo:</label>
+                        <input type="text" class="form-control" id="costoProducto" name="costoProducto" aria-describedby="costoProducto" placeholder="Costo" required>
+                        <br>
+                        <label for="precioUnitarioProducto">Precio Unitario:</label>
+                        <input type="text" class="form-control" id="precioUnitarioProducto" name="precioUnitarioProducto" aria-describedby="precioUnitarioProducto" placeholder="Precio Unitario" required>
+                        <br>
+                        <br>
+                        <br>
+                        <input id="producto_agregar" type="button" class="btn btn-primary" value="Agregar" onclick="Producto.agregar()">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="stockProducto">Stock:</label>
+                        <input type="text" class="form-control" id="stockProducto" name="stockProducto" aria-describedby="stockProducto" placeholder="Stock" required>
+                        <br>
+                        <label for="marcasProducto">Marca:</label>
+                        <select name="marcasProducto" id="marcasProducto" class="form-control">
+                        <option>Marca</option>
+                        </select>
+                        <br>
+                        <label for="categoriaProducto">Categoria:</label>
+                        <select name="categoriaProducto" id="categoriaProducto" class="form-control">
+                        <option>Categoria</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="listar" class="tabcontent">
+            <table class="table table-bordered" id='listado_productos'>
+            </table>
+        </div>
+        <div id="marca" class="tabcontent">
+            <table class="table table-bordered" id='listado_marcas'>
+                <div class="form-group col-md-6">
+                    <label for="marca">Marca:</label>
+                    <input type="text" class="form-control" id="marca_nombre" name="marca" aria-describedby="marca" placeholder="Agregar Marca" required>
+                    <br>
+                </div>
+                <input id="marca_agregar" type="button" class="btn btn-primary" value="Agregar Marca" onclick="Marcas.agregar()">
+            </table>
+        </div>
+        <div id="categoria" class="tabcontent">
+            <table class="table table-bordered" id='listado_categorias'>
+                <div class="form-group col-md-6">
+                    <label for="categoria">Nombre:</label>
+                    <input type="text" class="form-control" id="categoria_nombre" name="categoria" aria-describedby="categoria" placeholder="Agregar Categoria" required>
+                    <br>
+                    <label for="categoria">Descripcion:</label>
+                    <input type="text" class="form-control" id="categoria_descripcion" name="descripcion" aria-describedby="descripcion" placeholder="Agregar Descripcion" required>
+                </div>
+                <input id="categoria_agregar" type="button" class="btn btn-primary" value="Agregar Categoria" onclick="Categoria.agregar()">
+            </table>
+        </div>
+        </div>
+        <script src="js/producto.js"></script>
+        <div id="lamascara" class="mascara">
+            <div class="contenido">
+                <section id="panelResultados">
+
+                </section>
+                <button type="button" class="btn btn-primary" id="aceptarEditarButton">Aceptar</button>
+            </div>
+        </div>
+    </body>
+</html>

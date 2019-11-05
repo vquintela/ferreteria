@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/estilos.css" type="text/css"/>
+    </head>
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Ferreteria</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" href="index.html">Empleado</a>
+                        <a class="nav-item nav-link active" href="clientes.html">Clientes</a>
+                        <a class="nav-item nav-link active" href="productos.html">Productos</a>
+                        <a class="nav-item nav-link active" href="ventas.html">Ventas</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="tab">
+            <button class="tablinks" onclick="openEdicion(event, 'venta')">Venta</button>
+            <button class="tablinks" onclick="openEdicion(event, 'listar')">Listado</button>
+            <button class="tablinks" onclick="openEdicion(event, 'cancelados')">Cancelados</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="venta" class="tabcontent">
+            <form class="form-signin">
+                <div class="form-row" id="venta_detalle">
+                    <div class="form-group col-md-6">
+                        <label for="cliente_venta">Cliente:</label>
+                        <select name="cliente_venta" id="cliente_venta" class="form-control">
+                        <option>Cliente</option>
+                        </select>
+                        <br>
+                        <label for="empleado_venta">Empleado:</label>
+                        <select name="empleado_venta" id="empleado_venta" class="form-control">
+                        <option>Empleado</option>
+                        </select>
+                        <br>
+                        <label for="fecha_venta">Fecha:</label>
+                        <input type="date" class="form-control" id="fecha_venta" name="fecha_venta" aria-describedby="fecha_venta" placeholder="Fecha" required>
+                        <br>
+                        <br>
+                        <br>
+                        <input id="cliente_agregar" type="button" class="btn btn-primary" value="Agregar" onclick="Venta.agregar()">
+                    </div>
+                    <!--<div class="form-group col-md-6">
+                        <label for="categoria_venta">Categoria:</label>
+                        <select name="categoria_venta" id="categoria_venta" class="form-control">
+                        <option>Categoria</option>
+                        </select>
+                        <br>
+                        <label for="producto_venta">Producto:</label>
+                        <select name="producto_venta" id="producto_venta" class="form-control">
+                        <option>Producto</option>
+                        </select>
+                        <br>
+                        <label for="cantidad_venta">Cantidad:</label>
+                        <input type="text" class="form-control" id="cantidad_venta" name="cantidad_venta" aria-describedby="cantidad_venta" placeholder="Cantidad" required>
+                        <br>
+                        <label for="telefono">Telefono:</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono" aria-describedby="telefono" placeholder="Telefono" required>
+                    </div>-->
+                </div>
+            </form>
+        </div>
+
+        <div id="listar" class="tabcontent">
+            <table class="table table-bordered" id='listado'>
+                <input id="cliente_ver" type="button" class="btn btn-primary" value="Ver Listado">
+            </table>
+        </div>
+        <div id="cancelados" class="tabcontent">
+            <table class="table table-bordered" id='listado'>
+                <input id="cliente_ver" type="button" class="btn btn-primary" value="Ver Listado">
+            </table>
+        </div>
+        </div>
+        <script src="js/venta.js"></script>
+        <div id="lamascara" class="mascara">
+            <div class="contenido">
+                <section id="panelResultados">
+
+                </section>
+                <button type="button" class="btn btn-primary" id="aceptarEditarButton">Aceptar</button>
+            </div>
+        </div>
+    </body>
+</html>
