@@ -74,7 +74,7 @@ public class DetalleVentaDAO {
         }
     }
 
-    public void crear(List<DetalleVenta> listado) {
+    public void crear(DetalleVenta[] listado) {
         for (DetalleVenta t : listado) {
             try (Connection connection = AdministradorBaseDeDatos.obtenerConexion();
                     PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DETALLE_VENTA)) {

@@ -1,5 +1,6 @@
 package dao;
 
+import com.mysql.jdbc.Statement;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -77,16 +78,23 @@ public class VentaDAO {
         }
     }
 
-    public void crear(Venta t) {
+    public int crear(Venta t) {
         try (Connection connection = AdministradorBaseDeDatos.obtenerConexion();
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_VENTA)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_VENTA, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setInt(1, t.getEmpleado().getId());
             preparedStatement.setInt(2, t.getCliente().getId());
             preparedStatement.setDate(3, (Date) normalizarFecha(t.getFecha()));
             preparedStatement.setBoolean(4, true);
             preparedStatement.executeUpdate();
+            ResultSet id = preparedStatement.getGeneratedKeys();
+            if (id.next()) {
+                return id.getInt(1);
+            }else {
+                throw new SQLException("Creating user failed, no ID obtained.");
+            }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
+            return 0;
         }
     }
 

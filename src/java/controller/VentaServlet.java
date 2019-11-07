@@ -52,8 +52,8 @@ public class VentaServlet extends HttpServlet {
         try {
             String texto = request.getReader().readLine();
             Venta venta = CONVERTIR.fromJson(texto, Venta.class);
-            VentaDAO.getInstance().crear(venta);
-            out.println(CONVERTIR.toJson("OK"));
+            int id = VentaDAO.getInstance().crear(venta);
+            out.println(CONVERTIR.toJson(id));
         } catch (ClassNotFoundException ex) {
             out.println("Verificar1: " + ex.getMessage());
         } catch (SQLException ex) {

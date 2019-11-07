@@ -50,30 +50,13 @@
                         <br>
                         <input id="cliente_agregar" type="button" class="btn btn-primary" value="Agregar" onclick="Venta.agregar()">
                     </div>
-                    <!--<div class="form-group col-md-6">
-                        <label for="categoria_venta">Categoria:</label>
-                        <select name="categoria_venta" id="categoria_venta" class="form-control">
-                        <option>Categoria</option>
-                        </select>
-                        <br>
-                        <label for="producto_venta">Producto:</label>
-                        <select name="producto_venta" id="producto_venta" class="form-control">
-                        <option>Producto</option>
-                        </select>
-                        <br>
-                        <label for="cantidad_venta">Cantidad:</label>
-                        <input type="text" class="form-control" id="cantidad_venta" name="cantidad_venta" aria-describedby="cantidad_venta" placeholder="Cantidad" required>
-                        <br>
-                        <label for="telefono">Telefono:</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono" aria-describedby="telefono" placeholder="Telefono" required>
-                    </div>-->
                 </div>
             </form>
         </div>
 
         <div id="listar" class="tabcontent">
-            <table class="table table-bordered" id='listado'>
-                <input id="cliente_ver" type="button" class="btn btn-primary" value="Ver Listado">
+            <table class="table table-bordered" id='listadoVentas2'>
+                <input id="cliente_ver" type="button" class="btn btn-primary" value="Ver Listado" onclick="Venta.listarDetalleVenta()">
             </table>
         </div>
         <div id="cancelados" class="tabcontent">
