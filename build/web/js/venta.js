@@ -233,22 +233,115 @@ class Venta {
                                     </tr>";
                         let ventas = JSON.parse(datotexto);
                         for (let i = 0; i < ventas.length; i++) {
-                            document.querySelector("#listadoVentas2").innerHTML +=
+                            if(ventas[i].Cancelado === true){
+                                document.querySelector("#listadoVentas2").innerHTML +=
                                     "<tr id='listado'>\n\
                                     <td class='text-center'>"+ ventas[i].id +"</td>\n\
                                     <td class='text-center'>"+ ventas[i].empleado.nombre +"</td>\n\
                                     <td class='text-center'>"+ ventas[i].cliente.nombre +"</td>\n\
                                     <td class='text-center'>"+ ventas[i].fecha +"</td>\n\
                                     <td class='text-center'>\n\
-                                    <button type='button' class='btn btn-warning btn-sm' onclick='Producto.editar(" + ventas[i].id + ");'>Editar</button>\n\
-                                    <button type='button' class='btn btn-danger btn-sm eliminar' onclick='Producto.eliminar(" + ventas[i].id + ");'>\n\
+                                    <button type='button' class='btn btn-warning btn-sm' onclick='Venta.verVenta("+ ventas[i].id + ");'>Ver Detalle</button>\n\
+                                    <button type='button' class='btn btn-danger btn-sm eliminar' onclick='Venta.cancelarVenta(" + ventas[i].id + ");'>\n\
                                     Cancelar\n\
                                     </button>\n\
                                     </td></tr>";
+                            }else{
+                                document.querySelector("#listadoVentas2").innerHTML +=
+                                    "<tr id='listado'>\n\
+                                    <td class='text-center'>"+ ventas[i].id +"</td>\n\
+                                    <td class='text-center'>"+ ventas[i].empleado.nombre +"</td>\n\
+                                    <td class='text-center'>"+ ventas[i].cliente.nombre +"</td>\n\
+                                    <td class='text-center'>"+ ventas[i].fecha +"</td>\n\
+                                    <td class='text-center'>\n\
+                                    <button type='button' class='btn btn-danger btn-sm eliminar' onclick='Venta.activarVenta(" + ventas[i].id + ");'>\n\
+                                    Cancelado / Activar\n\
+                                    </button>\n\
+                                    </td></tr>";
+                            }
                         }   
                     }catch(Excepcion){
                         Venta.modalEd(datotexto);
                     }
+                    document.querySelector("#aceptarEditarButton").addEventListener('click', function (){
+                        location.reload();
+                    });
+                });
+    }
+    
+    static verVenta(id){
+        fetch("DetalleVentaServlet?&q=" + id,
+                {method: 'GET'})
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (datotexto) {
+                    try{
+                        document.querySelector("#listadoVentas2").innerHTML =
+                                    "<br>\n\
+                                    <br>\n\
+                                    <table class='table table-bordered' id='listado_detalleProductos'>\n\
+                                    <th class='text-center'>Producto</th>\n\
+                                    <th class='text-center'>Cantidad</th>\n\
+                                    <th class='text-center'>Precio</th>\n\
+                                    <th class='text-center'>Acciones</th>\n\
+                                    </table>";
+                        let detalle = JSON.parse(datotexto);
+                        for (let i = 0; i < detalle.length; i++) {
+                            document.querySelector("#listadoVentas2").innerHTML +=
+                                    "<tr id='listado'>\n\
+                                    <td class='text-center'>"+ detalle[i].producto.categoria.nombre +"</td>\n\
+                                    <td class='text-center'>"+ detalle[i].cantidad +"</td>\n\
+                                    <td class='text-center'>"+ detalle[i].precio +"</td>\n\
+                                    <td class='text-center'>\n\
+                                    <button type='button' class='btn btn-warning btn-sm' onclick='Venta.elimDetalle("+ detalle[i].id + ");'>Eliminar Detalle</button>\n\
+                                    </td></tr>";
+                        }
+                    }catch(Exception){
+                        Venta.modalEd(datotexto);
+                    }
+                    document.querySelector("#aceptarEditarButton").addEventListener('click', function (){
+                        location.reload();
+                    });
+                });
+    }
+    
+    static elimDetalle(id){
+        fetch("DetalleVentaServlet?&q=" + id,
+                {method: 'DELETE'})
+                .then(function (response){
+                    return response.text();
+                })
+                .then(function (datotexto) {
+                    Venta.modalEd(datotexto);
+                    document.querySelector("#aceptarEditarButton").addEventListener('click', function (){
+                        location.reload();
+                    });
+                });
+    }
+    
+    static cancelarVenta(id){
+        fetch("VentaServlet?&q=" + id,
+                {method: 'DELETE'})
+                .then(function (response){
+                    return response.text();
+                })
+                .then(function (datotexto) {
+                    Venta.modalEd(datotexto);
+                    document.querySelector("#aceptarEditarButton").addEventListener('click', function (){
+                        location.reload();
+                    });
+                });
+    }
+    
+    static activarVenta(id){
+        fetch("VentaServlet?&q=" + id,
+                {method: 'PUT'})
+                .then(function (response){
+                    return response.text();
+                })
+                .then(function (datotexto) {
+                    Venta.modalEd(datotexto);
                     document.querySelector("#aceptarEditarButton").addEventListener('click', function (){
                         location.reload();
                     });

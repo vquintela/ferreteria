@@ -12,9 +12,7 @@ import util.AdministradorBaseDeDatos;
 
 public class DetalleVentaDAO {
     private static final String INSERT_DETALLE_VENTA = "INSERT INTO detalle_venta (id_venta, id_producto, cantidad, precio) VALUES (?, ?, ?, ?);";
-    private static final String SELECT_DETALLE_VENTA = "SELECT * from detalle_venta";
-    private static final String SELECT_DETALLE_VENTA_ID = "SELECT * from detalle_venta where id = ?";
-    private static final String UPDATE_DETALLE_VENTA = "UPDATE detalle_venta SET id_venta = ?, id_producto = ?, cantidad = ?, precio = ? WHERE id = ?";
+    private static final String SELECT_DETALLE_VENTA = "SELECT * from detalle_venta where id_venta = ?";
     private static final String DELETE_DETALLE_VENTA = "DELETE FROM detalle_venta WHERE id = ?";
 
     private DetalleVentaDAO() throws ClassNotFoundException,
@@ -30,32 +28,10 @@ public class DetalleVentaDAO {
         return INSTANCE;
     }
 
-    public DetalleVenta obtener(int id) throws ClassNotFoundException, IOException {
-        try (Connection connection = AdministradorBaseDeDatos.obtenerConexion();
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_DETALLE_VENTA_ID)) {
-            preparedStatement.setInt(1, id);
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-            if (rs.first()) {
-                return new DetalleVenta(
-                        rs.getInt("id"),
-                        VentaDAO.getInstance().obtener(rs.getInt("id_venta")),
-                        ProductoDAO.getInstance().obtener(rs.getInt("id_producto")),
-                        rs.getInt("cantidad"),
-                        rs.getInt("precio")
-                );
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
-        }
-        return null;
-    }
-
-    public List<DetalleVenta> obtenerTodos() throws ClassNotFoundException, IOException {
+    public List<DetalleVenta> obtenerTodos(int id) throws ClassNotFoundException, IOException {
         try (Connection c = AdministradorBaseDeDatos.obtenerConexion();
             PreparedStatement ps = c.prepareStatement(SELECT_DETALLE_VENTA)) {
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             List<DetalleVenta> detalleVentas = new ArrayList<>();
             while (rs.next()) {
@@ -93,20 +69,6 @@ public class DetalleVentaDAO {
         try (Connection conexion = AdministradorBaseDeDatos.obtenerConexion()) {
             PreparedStatement preparedStatement = conexion.prepareStatement(DELETE_DETALLE_VENTA);
             preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
-        }
-    }
-
-    public void actualizar(DetalleVenta t) {
-        try (Connection conexion = AdministradorBaseDeDatos.obtenerConexion()) {
-            PreparedStatement preparedStatement = conexion.prepareStatement(UPDATE_DETALLE_VENTA);
-            preparedStatement.setInt(1, t.getVenta().getId());
-            preparedStatement.setInt(2, t.getProducto().getId());
-            preparedStatement.setInt(3, t.getCantidad());
-            preparedStatement.setInt(4, t.getPrecio());
-            preparedStatement.setInt(5, t.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);

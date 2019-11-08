@@ -18,8 +18,8 @@ public class VentaDAO {
     private static final String INSERT_VENTA = "INSERT INTO venta (id_empleado, id_cliente, fecha, cancelado) VALUES (?, ?, ?, ?);";
     private static final String SELECT_VENTA = "SELECT * from venta";
     private static final String SELECT_VENTA_ID = "SELECT * from venta where id = ?";
-    private static final String UPDATE_VENTA = "UPDATE venta SET id_empleado = ?, id_cliente = ?, fecha = ?, cancelado = ? WHERE id = ?";
-    private static final String DELETE_VENTA = "DELETE FROM venta WHERE id = ?";
+    private static final String UPDATE_VENTA = "UPDATE venta SET cancelado = ? WHERE id = ?";
+    private static final String DELETE_VENTA = "UPDATE venta SET cancelado = ? WHERE id = ?";
 
     private VentaDAO() throws ClassNotFoundException,
             IOException, SQLException {
@@ -99,24 +99,21 @@ public class VentaDAO {
     }
 
     public void borrar(int id) {
-
         try (Connection conexion = AdministradorBaseDeDatos.obtenerConexion()) {
             PreparedStatement preparedStatement = conexion.prepareStatement(DELETE_VENTA);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setBoolean(1, false);
+            preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
     }
 
-    public void actualizar(Venta t) {
+    public void actualizar(int id) {
         try (Connection conexion = AdministradorBaseDeDatos.obtenerConexion()) {
             PreparedStatement preparedStatement = conexion.prepareStatement(UPDATE_VENTA);
-            preparedStatement.setInt(1, t.getEmpleado().getId());
-            preparedStatement.setInt(2, t.getCliente().getId());
-            preparedStatement.setDate(3, (Date) normalizarFecha(t.getFecha()));
-            preparedStatement.setBoolean(4, true);
-            preparedStatement.setInt(5, t.getId());
+            preparedStatement.setBoolean(1, true);
+            preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);

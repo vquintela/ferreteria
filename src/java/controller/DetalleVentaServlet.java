@@ -35,21 +35,14 @@ public class DetalleVentaServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        
         try {
-            if (request.getParameter("q") == null){
-                String texto = request.getReader().readLine();
-                List<DetalleVenta> listado = DetalleVentaDAO.getInstance().obtenerTodos();
-                String listJSON = CONVERTIR.toJson(listado);
-                out.println(listJSON);
-            } else {
-                DetalleVenta venta = DetalleVentaDAO.getInstance().obtener(Integer.parseInt(request.getParameter("q")));
-                out.println(CONVERTIR.toJson(venta));
-            }
+            String texto = request.getReader().readLine();
+            List<DetalleVenta> listado = DetalleVentaDAO.getInstance().obtenerTodos(Integer.parseInt(request.getParameter("q")));
+            String listJSON = CONVERTIR.toJson(listado);
+            out.println(listJSON);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MarcaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
     }
 
     @Override
@@ -84,28 +77,6 @@ public class DetalleVentaServlet extends HttpServlet {
             out.println(CONVERTIR.toJson("OK"));
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(EmpleadoServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        try {
-                String texto = request.getReader().readLine();
-                DetalleVenta ventaParametro = CONVERTIR.fromJson(texto, DetalleVenta.class);
-                DetalleVentaDAO.getInstance().actualizar(ventaParametro);
-                out.println(CONVERTIR.toJson("OK"));    
-        } catch (ClassNotFoundException ex) {
-            out.println("Verificar1: " + ex.getMessage());
-        } catch (SQLException ex) {
-            out.println("Verificar2:" + ex.getMessage());
-        } catch (JsonSyntaxException | IOException ex) {
-            out.println("Verificar3:" + ex.getMessage());
-        } finally {
-            out.close();
         }
     }
 
